@@ -19,8 +19,11 @@ public class Alumno {
     ArrayList<Alumno> listadato=new ArrayList<Alumno>();
     File f = new File("alumno.dat");
     FileOutputStream fos = null;
-    BufferedOutputStream bis = null;
-    ObjectOutputStream ois = null;
+    BufferedOutputStream bos = null;
+    ObjectOutputStream oos = null;
+    FileInputStream fis = null;
+    BufferedInputStream bis = null;
+    ObjectInputStream ois = null;
     public Alumno(){
     
     
@@ -60,10 +63,52 @@ public class Alumno {
     public void llenarArchivo(){
       try{
            fos = new FileOutputStream(f);      
-           bis= new BufferedOutputStream(fos);     
-           ois=new ObjectOutputStream(bis);
-           ois.writeObject(listadato);                  
+           bos= new BufferedOutputStream(fos);     
+           oos=new ObjectOutputStream(bos);
+           oos.writeObject(listadato);                  
       }catch (FileNotFoundException e){
+                     System.out.println("Error. Fichero no encontrado.");
+                     System.out.println(e.getMessage());
+	                 
+	        } catch (EOFException e)	
+                {
+                    System.out.println("Fin de fichero");
+                    
+                }catch (IOException e)	
+                {
+                    System.out.println("Error al abrir el fichero");
+                    System.out.println(e.getMessage());
+                } catch (Exception e)
+                {
+                    System.out.println("Error general.");
+                    System.out.println(e.getMessage());
+                } finally 
+                {
+                    try 
+                    {
+                        if (oos!=null) 
+                        {
+                            oos.close();
+                        }
+                        
+                    } catch (IOException e) 
+                    {
+                        System.out.println("Error al cerrar eñ fichero.");
+                        System.out.println(e.getMessage());
+                    }
+                }
+      
+    }
+    
+    public void pasarALista(){
+        try{
+            
+           fis = new FileInputStream(f);      
+           bis= new BufferedInputStream(fis);     
+           ois=new ObjectInputStream(bis);
+           
+           listadato=(ArrayList<Alumno>) ois.readObject();
+        }catch (FileNotFoundException e){
                      System.out.println("Error. Fichero no encontrado.");
                      System.out.println(e.getMessage());
 	                 
@@ -94,7 +139,16 @@ public class Alumno {
                         System.out.println(e.getMessage());
                     }
                 }
-      
+           
+               
+    }
+    
+    public void pasarFichero5(){
+        try{
+            fis = new FileInputStream(f);      
+           bis= new BufferedInputStream(fis); 
+           
+        }
     }
     
 }
