@@ -1,0 +1,28 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package vectores;
+
+/**
+ *
+ * @author mati
+ */
+public class Ej13 {
+    public static void main(String[] args) {
+         int [] vector= new int [50];
+           int [] pector= new int [50];
+           for (int i=0; vector.length>i; i++ ){
+              vector[i]=(int)(Math.random()*10);
+           }
+           
+           pector[0]=vector[0];
+           
+            for (int i = 1; i < pector.length; i++) { 
+                 pector[i] = pector[i - 1] + vector[i];
+                 System.out.println("Poscicion "+(i+1)+ " valor:" + pector[i]);
+        }
+              
+    }
+}
